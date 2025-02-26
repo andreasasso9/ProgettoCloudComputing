@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Streaming Musicale</title>
+
+        <link rel="stylesheet" href="style/main.css">
+    </head>
+    <body>
+        <header>
+            <label>
+                <input type="text" placeholder="Cerca una canzone...">
+            </label>
+            <div class="profile">
+                <img src="images/account.png" alt="👤">
+                <div class="profile-menu">
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            <aside>
+                <h3>Playlist</h3>
+                <ul>
+                    <li>Playlist 1</li>
+                    <li>Playlist 2</li>
+                    <li>Playlist 3</li>
+                </ul>
+            </aside>
+            <main>
+                <h2>Lista Canzoni</h2>
+                <ul id="song-list"></ul>
+            </main>
+        </div>
+
+        <div class="player">
+            <audio id="myAudio" controls controlsList="nodownload"></audio>
+        </div>
+    </body>
+</html>
