@@ -14,9 +14,13 @@
             </label>
             <div class="profile">
                 <img src="images/account.png" alt="👤">
-                <div class="profile-menu">
-                    <a href="/logout">Logout</a>
-                </div>
+                <ul class="profile-menu">
+                    <li><form action="/logout" method="get">
+                        <input class="btn btn-warning" type="submit" value="Sign Out" />
+                    </form></li>
+
+                    <li><a href="/admin/addSong">Aggiungi una canzone</a></li>
+                </ul>
             </div>
         </header>
 
@@ -45,10 +49,12 @@
         <script>
             //todo aggiungere funzione per ottenere i nomi delle canzoni dal database e mostrarle in song list
             function getSong(name) {
-                let currentUrl=window.location.href.split('?')[0]
+                let currentUrl=window.location.hostname
+                // alert(currentUrl)
                 if (!currentUrl.endsWith('/'))
                     currentUrl+='/'
                 let url=currentUrl+'song/get='+name
+                alert(url)
                 // todo cambiare name in id
                 fetch(url)
                     .then(response => {

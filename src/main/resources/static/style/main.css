@@ -26,7 +26,7 @@ header input {
 }
 .profile-menu {
     display: none;
-    position: absolute;
+    position: relative;
     right: 0;
     background: white;
     color: black;
@@ -35,6 +35,8 @@ header input {
 }
 .profile:hover .profile-menu {
     display: block;
+    position: fixed;
+    top: 22px;
 }
 .container {
     display: flex;
@@ -69,4 +71,12 @@ main {
 .profile img {
     backdrop-filter: contrast(0%);
     border-radius: 30%;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+    padding: 5%;
 }
