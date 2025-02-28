@@ -17,16 +17,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @EnableMethodSecurity
 public class SecurityConfig  {
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		System.out.println("ciaoooo");
-
-		http.authorizeHttpRequests(requests -> requests
-				.anyRequest().authenticated())
-				.formLogin(login->login.loginPage("/login"));
-
-		return http.build();
-	}
+//	@Bean
+//	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//		System.out.println("ciaoooo");
+//
+//		http.authorizeHttpRequests(requests -> requests
+//				.anyRequest().authenticated())
+//				.formLogin(login->login.loginPage("/login"));
+//
+//		return http.build();
+//	}
 
 //	@Bean
 //	@RequestScope
