@@ -1,10 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Hello World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streaming Musicale</title>
+
+    <link rel="stylesheet" href="style/main.css">
 </head>
 <body>
-    <h1>Hello World</h1>
+<header>
+    <label>
+        <input type="text" placeholder="Cerca una canzone...">
+    </label>
+    <div class="profile">
+        <img src="images/account.png" alt="👤">
+        <ul class="profile-menu">
+            <li><form action="/logout" method="get">
+                <input class="btn btn-warning" type="submit" value="Sign Out" />
+            </form></li>
+
+            <li><a href="/admin/addSong">Aggiungi una canzone</a></li>
+        </ul>
+    </div>
+</header>
+
+<div class="container">
+    <aside>
+        <h3>Playlist</h3>
+        <ul>
+            <li>Playlist 1</li>
+            <li>Playlist 2</li>
+            <li>Playlist 3</li>
+        </ul>
+    </aside>
+    <main>
+        <h2>Lista Canzoni</h2>
+        <ul id="song-list">
+            <li onclick="getSong(this.textContent)">Ok</li>
+            <!--                    todo rimuovere li di prova-->
+        </ul>
+    </main>
+</div>
+
+<div class="player">
+    <audio id="myAudio" controls></audio>
+</div>
+
+<script>
+    //todo aggiungere funzione per ottenere i nomi delle canzoni dal database e mostrarle in song list
+    function getSong(name) {
+        let currentUrl=window.location.hostname
+        // alert(currentUrl)
+        if (!currentUrl.endsWith('/'))
+            currentUrl+='/'
+        let url=currentUrl+'song/get='+name
+        alert(url)
+        // todo cambiare name in id
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Errore nel recupero del file audio')
+                }
+                return response.text()
+            })
+            .then(songUrl => {
+                let player = document.getElementById('myAudio')
+                player.src = songUrl
+                player.play()
+            })
+            .catch(error => {
+                console.error('Errore:', error)
+            })
+    }
+</script>
 </body>
 </html>
