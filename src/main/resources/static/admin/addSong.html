@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aggiungi una Canzone</title>
+
+    <link rel="stylesheet" href="../style/addSong.css">
+</head>
+<body>
+<div class="form-container">
+    <h2>Aggiungi una Canzone</h2>
+    <form action="/admin/addSong" method="post" enctype="multipart/form-data">
+        <label for="song-name">Nome della Canzone:</label>
+        <input type="text" id="song-name" name="song_name" required>
+
+        <label for="artist-name">Nome del Cantante:</label>
+        <input type="text" id="artist-name" name="artist_name" required>
+
+        <label for="audio-file">Traccia Audio (MP3):</label>
+        <input type="file" id="audio-file" name="audio_file" accept="audio/mpeg" required>
+
+        <button type="submit">Carica Canzone</button>
+    </form>
+</div>
+</body>
+</html>
