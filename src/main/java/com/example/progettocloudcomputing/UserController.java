@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 	@GetMapping("/getUser")
 	public String getUser() {
-		return SecurityContextHolder.getContext().getAuthentication().toString();
+		return SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
 	}
 }

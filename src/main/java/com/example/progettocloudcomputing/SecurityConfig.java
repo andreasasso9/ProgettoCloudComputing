@@ -16,11 +16,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeHttpRequests(request->request.requestMatchers("/").authenticated().anyRequest().permitAll())
-				.formLogin(login->{
-					Customizer<Object> c=Customizer.withDefaults();
-					login.defaultSuccessUrl("/user/getUser", true);
-					c.customize(login);
-				});
+				.oauth2Login(login->login.defaultSuccessUrl("/index.html", true));
 
 		return http.build();
 	}
