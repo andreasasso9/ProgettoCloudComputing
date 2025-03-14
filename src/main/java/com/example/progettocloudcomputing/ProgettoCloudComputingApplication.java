@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableCosmosRepositories(basePackages = "com.example.progettocloudcomputing.repository")
-@ComponentScan("com.example.progettocloudcomputing.control")
+@ComponentScan(basePackages = {"com.example.progettocloudcomputing.control", "com.example.progettocloudcomputing.service"})
 public class ProgettoCloudComputingApplication {
 
 	public static void main(String[] args) {
