@@ -14,7 +14,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeHttpRequests(request->request.requestMatchers("/").authenticated().anyRequest().permitAll())
-				.oauth2Login(login->login.loginPage("/login.html").defaultSuccessUrl("/user/save", false));
+				.oauth2Login(login->login.loginPage("/login.html").successHandler((request, response, authentication) -> response.sendRedirect("/index.html")));
 
 		return http.build();
 	}
