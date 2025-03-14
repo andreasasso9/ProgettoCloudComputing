@@ -14,7 +14,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-@Order(1)
 public class LoginFilter extends OncePerRequestFilter {
 
 	@Override
@@ -24,5 +23,10 @@ public class LoginFilter extends OncePerRequestFilter {
 		response.sendRedirect("/index.html");
 
 		filterChain.doFilter(request, response);
+	}
+
+	@Override
+	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+		return !request.getServletPath().contains("/.auth/login/done");
 	}
 }
