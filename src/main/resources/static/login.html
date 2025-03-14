@@ -65,7 +65,7 @@
         fetch ('/.auth/me').then(response=>{
             if (response.ok)
                 window.location.replace('/index.html')
-        }).catch(error=>throw new Error(error))
+        }).catch(error=>console.error(error))
     }
 </script>
 </body>
