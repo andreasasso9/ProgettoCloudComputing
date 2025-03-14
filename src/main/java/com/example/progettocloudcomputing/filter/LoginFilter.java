@@ -21,7 +21,7 @@ public class LoginFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
 			throws ServletException, IOException {
 
-		if (request.getRequestURI().equals("/.auth/login/done") &&
+		if (request.getRequestURI().equals(request.getContextPath()+"/.auth/login/done") &&
 				SecurityContextHolder.getContext().getAuthentication() instanceof OAuth2AuthenticationToken) {
 			response.sendRedirect("/index.html");
 			return;
