@@ -24,8 +24,8 @@ public class UserController {
 	public String save(@AuthenticationPrincipal OidcUser user) {
 		User u=new User(user);
 
-		boolean result=userService.save(u);
-		System.out.println(result);
+//		boolean result=userService.save(u);
+//		System.out.println(result);
 
 		return u.toString();
 	}
