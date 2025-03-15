@@ -3,7 +3,10 @@ package com.example.progettocloudcomputing.control;
 import com.example.progettocloudcomputing.entity.User;
 import com.example.progettocloudcomputing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,16 +24,19 @@ public class UserController {
 	}
 
 	@GetMapping("/save")
-	public String save(@AuthenticationPrincipal OidcUser user) {
-		if (user!=null) {
-			User u = new User(user);
-
+	public String save() {
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		return auth.getCredentials().toString();
+//		User user = new User();
+//		if (user!=null) {
+//			User u = new User(user);
+//
 //		boolean result=userService.save(u);
 //		System.out.println(result);
-
-
-			return u.toString();
-		}
-		return "niente";
+//
+//
+//			return u.toString();
+//		}
+//		return "niente";
 	}
 }

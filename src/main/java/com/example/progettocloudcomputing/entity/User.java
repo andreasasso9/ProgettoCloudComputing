@@ -1,5 +1,6 @@
 package com.example.progettocloudcomputing.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -8,16 +9,11 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 	private String id;
 	private String email;
 	private String name;
-
-	public User(OidcUser user) {
-		id = user.getIdToken().getSubject();
-		email = user.getEmail();
-		name = user.getName();
-	}
 
 	@Override
 	public String toString() {
