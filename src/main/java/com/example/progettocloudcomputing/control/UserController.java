@@ -26,7 +26,7 @@ public class UserController {
 	@GetMapping("/save")
 	public String save() {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-		return auth.isAuthenticated()+"";
+		return String.format("credentials: %s\nprincipal: %s\nname: %s\ndetails: %s", auth.getCredentials(), auth.getPrincipal(), auth.getName(), auth.getDetails());
 //		User user = new User();
 //		if (user!=null) {
 //			User u = new User(user);
