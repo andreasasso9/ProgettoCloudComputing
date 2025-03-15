@@ -1,11 +1,7 @@
 package com.example.progettocloudcomputing.control;
 
-import com.example.progettocloudcomputing.entity.User;
 import com.example.progettocloudcomputing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
