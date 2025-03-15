@@ -22,11 +22,15 @@ public class UserController {
 
 	@GetMapping("/save")
 	public String save(@AuthenticationPrincipal OidcUser user) {
-		User u=new User(user);
+		if (user!=null) {
+			User u = new User(user);
 
 //		boolean result=userService.save(u);
 //		System.out.println(result);
 
-		return u.toString();
+
+			return u.toString();
+		}
+		return "niente";
 	}
 }
