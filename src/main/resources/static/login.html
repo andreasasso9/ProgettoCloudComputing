@@ -31,7 +31,7 @@
         fetch ('/.auth/me').then(response=>{
             alert(response.json())
             if (response.ok)
-                window.location.replace('/index.html')
+                window.location.replace('/user/save')
         }).catch(error=>console.error(error))
     }
 </script>
