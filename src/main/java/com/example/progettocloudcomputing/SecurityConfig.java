@@ -13,9 +13,10 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		System.out.println("ciaoooo");
 		http
-				.authorizeHttpRequests(request->request.requestMatchers("/", "/.auth/me", "/user/save", "/style/*", "/index.html").permitAll().anyRequest().authenticated())
-				.oauth2Login(login->login.loginPage("/login.html").permitAll())
+				.authorizeHttpRequests(request->request.requestMatchers("/", "/.auth/me", "/user/save", "/style/*").permitAll().anyRequest().authenticated())
+				.oauth2Login(login->login.loginPage("/login.html").permitAll().successHandler((request, response, authentication) -> response.sendRedirect("/user/save")))
 				.logout(LogoutConfigurer::permitAll);
 
 		return http.build();
