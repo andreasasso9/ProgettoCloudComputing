@@ -16,7 +16,7 @@ public class SecurityConfig {
 		System.out.println("ciaoooo");
 		http
 				.authorizeHttpRequests(request->request.requestMatchers("/", "/.auth/me", "/user/save", "/style/*").permitAll().anyRequest().authenticated())
-				.oauth2Login(login->login.loginPage("/login.html").permitAll().successHandler((request, response, authentication) -> response.sendRedirect("/user/save")))
+				.oauth2Login(login->login.loginPage("/login.html").permitAll().defaultSuccessUrl("/user/save", true))
 				.logout(LogoutConfigurer::permitAll);
 
 		return http.build();
