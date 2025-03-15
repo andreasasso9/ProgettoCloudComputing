@@ -20,13 +20,13 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@GetMapping("/save")
-	public String save(@AuthenticationPrincipal OidcUser user) {
-		User u=new User(user);
-
-//		boolean result=userService.save(u);
-//		System.out.println(result);
-
-		return u.toString();
-	}
+//	@GetMapping("/save")
+//	public String save(@AuthenticationPrincipal OidcUser user) {
+//		User u=new User(user);
+//
+////		boolean result=userService.save(u);
+////		System.out.println(result);
+//
+//		return u.toString();
+//	}
 }
