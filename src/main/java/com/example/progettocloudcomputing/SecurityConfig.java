@@ -16,7 +16,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-				.authorizeHttpRequests(request->request.requestMatchers("/", "/login", "/logut", "/.auth/me", "/user/save").permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(request->request.requestMatchers("/", "/login", "/logut", "/.auth/me", "/user/save", "/style/*").permitAll().anyRequest().authenticated())
 				.oauth2Login(login->login.loginPage("/login.html").permitAll())
 				.logout(LogoutConfigurer::permitAll);
 

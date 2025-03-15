@@ -29,7 +29,7 @@
 <script>
     function checkLoggedUser() {
         fetch ('/.auth/me').then(response=>{
-            alert(response.json())
+            alert(response.ok)
             if (response.ok)
                 window.location.replace('/user/save')
         }).catch(error=>console.error(error))
