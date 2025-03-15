@@ -6,6 +6,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
@@ -15,8 +16,9 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-				.authorizeHttpRequests(request->request.requestMatchers("/").authenticated().anyRequest().permitAll())
-				.oauth2Login(login->login.loginPage("/login.html").successHandler((request, response, authentication) -> response.sendRedirect("/index.html")));
+				.authorizeHttpRequests(request->request.requestMatchers("/login", "/logut", "/.auth/me").permitAll().anyRequest().authenticated())
+				.oauth2Login(login->login.loginPage("/login.html").permitAll())
+				.logout(LogoutConfigurer::permitAll);
 
 		return http.build();
 	}

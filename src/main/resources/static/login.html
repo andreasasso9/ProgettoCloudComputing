@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="style/login.css">
 </head>
-<body onload="return checkLoggedUser()">
+<body onload="checkLoggedUser()">
 <div class="login-container">
     <h2>Accedi</h2>
     <form action="/login" method="POST">
@@ -29,6 +29,7 @@
 <script>
     function checkLoggedUser() {
         fetch ('/.auth/me').then(response=>{
+            alert(response.json())
             if (response.ok)
                 window.location.replace('/index.html')
         }).catch(error=>console.error(error))
