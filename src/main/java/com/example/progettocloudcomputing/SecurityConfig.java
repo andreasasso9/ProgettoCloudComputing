@@ -13,8 +13,13 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-//				.authorizeHttpRequests(request->request.requestMatchers("/", "/.auth/me", "/user/save", "/style/*").permitAll().anyRequest().authenticated())
-				.oauth2Login(login->login.loginPage("/login").defaultSuccessUrl("/index", true));
+				.authorizeHttpRequests(request->request
+						.requestMatchers("/login", "/static/**", "/style/**", "/script/**", "/images/**").permitAll()
+						.anyRequest().authenticated())
+				.oauth2Login(oauth2->oauth2
+						.loginPage("/login")
+						.defaultSuccessUrl("/index", true));
+
 
 		return http.build();
 	}

@@ -17,13 +17,13 @@ label, input {
     width: 100%;
     margin-bottom: 10px;
 }
-button {
+.submit {
     background-color: #28a745;
     color: white;
     padding: 10px;
     border: none;
     cursor: pointer;
 }
-button:hover {
+.submit:hover {
     background-color: #218838;
 }

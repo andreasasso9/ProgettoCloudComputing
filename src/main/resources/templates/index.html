@@ -9,15 +9,13 @@
 </head>
 <body>
 <header>
-
-    <h1 th:text="${email}"></h1>
     <label>
         <input type="text" placeholder="Cerca una canzone...">
     </label>
     <div class="profile">
-        <img src="../static/images/account.png" alt="👤">
+        <img th:src="@{/images/account.png}" alt="👤">
         <ul class="profile-menu">
-            <li id=""></li>
+            <li th:text="${user.getName()}"></li>
 
             <li><a href="/admin/addSong.html">Aggiungi una canzone</a></li>
         </ul>

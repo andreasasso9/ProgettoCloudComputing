@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 
-    <link rel="stylesheet" th:href="@{style/login.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style/login.css}">
 </head>
-<body onload="checkLoggedUser()">
+<body>
 <div class="login-container">
     <h2>Accedi</h2>
     <form action="/login" method="POST">
@@ -22,17 +22,8 @@
     <div class="space">
         <hr>
     </div>
-    <a href="/.auth/login/aad" class="microsoft-btn">Accedi con Microsoft</a>
+    <a href="/oauth2/authorization/azure" class="microsoft-btn">Accedi con Microsoft</a>
 </div>
 
-<script>
-    function checkLoggedUser() {
-        fetch ('/.auth/me').then(response=>{
-            alert(response.ok)
-            if (response.ok)
-                window.location.replace('/user/save')
-        }).catch(error=>console.error(error))
-    }
-</script>
 </body>
 </html>
