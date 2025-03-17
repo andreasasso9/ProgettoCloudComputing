@@ -1,19 +1,21 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Streaming Musicale</title>
 
-    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" th:href="@{style/main.css}">
 </head>
 <body>
 <header>
+
+    <h1 th:text="${email}"></h1>
     <label>
         <input type="text" placeholder="Cerca una canzone...">
     </label>
     <div class="profile">
-        <img src="images/account.png" alt="👤">
+        <img src="../static/images/account.png" alt="👤">
         <ul class="profile-menu">
             <li id=""></li>
 
