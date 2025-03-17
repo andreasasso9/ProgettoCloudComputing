@@ -5,8 +5,6 @@ import com.example.progettocloudcomputing.repository.SongRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 public class SongService {
@@ -15,9 +13,5 @@ public class SongService {
 	public boolean save(Song song) {
 		songRepository.save(song);
 		return true;
-	}
-
-	public List<Song> getByName(String name) {
-		return songRepository.findByName(name);
 	}
 }

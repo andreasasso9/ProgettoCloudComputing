@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
+import java.net.URL;
 
 @Data
 @NoArgsConstructor
@@ -14,5 +15,5 @@ public class Song implements Serializable {
 	private String id;
 	private String name;
 	private String singer;
-	private String songUrl;
+	private URL songUrl;
 }

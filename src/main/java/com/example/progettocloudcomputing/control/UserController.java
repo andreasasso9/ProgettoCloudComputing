@@ -19,4 +19,20 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@GetMapping("/save")
+	public String save() {
+		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
+		return String.format("credentials: %s<br>principal: %s<br>name: %s<br>details: %s", auth.getCredentials(), auth.getPrincipal(), auth.getName(), auth.getDetails());
+//		User user = new User();
+//		if (user!=null) {
+//			User u = new User(user);
+//
+//		boolean result=userService.save(u);
+//		System.out.println(result);
+//
+//
+//			return u.toString();
+//		}
+//		return "niente";
+	}
 }
