@@ -32,19 +32,19 @@ public class PageController {
 			u.setName(user.getAttribute("name"));
 			userService.save(u);
 
-			model.addAttribute("user", "default");
+			model.addAttribute("login", "default");
 		} else if (authentication instanceof OAuth2User) {
 			OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
 			u.setEmail(oauth2User.getAttribute("email"));
 			u.setName(oauth2User.getAttribute("name"));
 			userService.save(u);
 
-			model.addAttribute("user", "user");
+			model.addAttribute("login", "user");
 		} else {
 			u.setEmail("anonymous");
 			u.setName("anonymous");
 
-			model.addAttribute("user", "anonymous");
+			model.addAttribute("login", "anonymous");
 		}
 
 		model.addAttribute("user", u);
