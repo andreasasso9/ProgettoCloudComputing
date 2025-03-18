@@ -27,9 +27,21 @@ public class PageController {
 		DefaultOAuth2User user=(DefaultOAuth2User) authentication.getPrincipal();
 
 		User u=userService.getById(user.getAttribute("email"));
+		if (u==null) {
+			u=new User();
+			u.setName(user.getName());
+			u.setEmail(user.getAttribute("email"));
+			u.setRole("USER");
+			userService.save(u);
+		}
 
 		model.addAttribute("user", u);
 
 		return "index";
+	}
+
+	@GetMapping("/admin/addSong")
+	public String addSong() {
+		return "/admin/addSong";
 	}
 }

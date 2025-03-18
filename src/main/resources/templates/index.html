@@ -6,6 +6,7 @@
     <title>Streaming Musicale</title>
 
     <link rel="stylesheet" th:href="@{style/main.css}">
+    <script type="text/javascript" th:src="@{script/index.js}"></script>
 </head>
 <body>
 <header>
@@ -13,11 +14,11 @@
         <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').textContent)">Cerca</button>
     </label>
     <div class="profile">
-        <img th:src="@{/images/account.png}" alt="👤">
+        <img th:src="@{/image/account.png}" alt="👤">
         <ul class="profile-menu">
-            <li th:text="${user.getName()}"></li>
+            <li th:text="${user.getName()}" style="color: white"></li>
 
-            <li th:if='${user.getRole().equals("ADMIN")}'><a href="/admin/addSong.html">Aggiungi una canzone</a></li>
+            <li th:if='${user.getRole().equals("ADMIN")}'><a href="/admin/addSong">Aggiungi una canzone</a></li>
         </ul>
     </div>
 </header>
@@ -25,12 +26,19 @@
 <div class="container">
     <aside>
         <h3>Playlist</h3>
-        <ul>
-            <li>Playlist 1</li>
-            <li>Playlist 2</li>
-            <li>Playlist 3</li>
+        <ul id="playlists">
+            <li><p onclick="openModal()">Crea una playlist</p></li>
         </ul>
     </aside>
+    <div id="playlistModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
+        <div class="modal-content" style="background:#fff; padding:20px; width:300px; margin:100px auto; border-radius:5px; text-align:center;">
+            <h4>Nuova Playlist</h4>
+            <label for="playlistName"></label><input type="text" id="playlistName" placeholder="Nome della playlist" style="width:100%; padding:5px;">
+            <br><br>
+            <button th:onclick="'addPlaylist('+${user.getEmail()}+')'">Aggiungi</button>
+            <button onclick="closeModal()">Annulla</button>
+        </div>
+    </div>
     <main>
         <h2>Lista Canzoni</h2>
         <ul id="song-list"></ul>
@@ -40,47 +48,5 @@
 <div class="player">
     <audio id="myAudio" controls></audio>
 </div>
-
-<script>
-    function getSong(name) {
-        fetch('/song/get?name=' + encodeURIComponent(name))
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Errore nel recupero del file audio');
-                }
-                return response.json();
-            })
-            .then(songs => {
-                let ul = document.getElementById("song-list");
-                ul.innerHTML = ""; // Pulisce la lista prima di aggiungere nuove canzoni
-
-                if (songs.length === 0) {
-                    let li = document.createElement("li");
-                    li.textContent = "Nessuna canzone trovata";
-                    ul.appendChild(li);
-                    return;
-                }
-
-                songs.forEach(song => {
-                    let li = document.createElement("li");
-
-                    // Creiamo il contenuto della lista
-                    li.innerHTML = `
-                <strong>${song.name}</strong> - ${song.singer}
-                <br>`;
-                    li.onclick=function () {
-                        let audioPlayer=document.getElementById('myAudio')
-                        audioPlayer.src=song.songUrl
-                        audioPlayer.play()
-                    }
-
-                    ul.appendChild(li);
-                });
-            })
-            .catch(error => {
-                console.error('Errore:', error);
-            })
-    }
-</script>
 </body>
 </html>

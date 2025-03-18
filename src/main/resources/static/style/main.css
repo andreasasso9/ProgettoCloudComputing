@@ -28,7 +28,7 @@ header input {
     display: none;
     position: relative;
     right: 0;
-    background: white;
+    background: #222;
     color: black;
     padding: 10px;
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
@@ -79,4 +79,12 @@ ul {
 
 li {
     padding: 5%;
+}
+
+a, li p {
+    text-decoration: none;
+    color: white;
+}
+a:hover, li p:hover{
+    text-decoration: underline;
 }
