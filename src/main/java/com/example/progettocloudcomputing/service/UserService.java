@@ -15,14 +15,7 @@ public class UserService {
 	}
 
 	public boolean save(User user) {
-		if (userRepository.findById(user.getEmail()).isEmpty()) {
-			userRepository.save(user);
-			return true;
-		}
-		return false;
-	}
-
-	public User getById(String email) {
-		return userRepository.findById(email).orElse(null);
+		userRepository.save(user);
+		return true;
 	}
 }

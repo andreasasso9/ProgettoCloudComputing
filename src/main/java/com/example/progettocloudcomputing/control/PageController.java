@@ -29,14 +29,9 @@ public class PageController {
 
 		u.setName(user.getName());
 		u.setEmail(user.getAttribute("email"));
-		u.setRole("USER");
-		if (user.getAttribute("password") != null) {
-			u.setPassword(user.getAttribute("password"));
-		}
 
 		model.addAttribute("user", u);
-		boolean save=userService.save(u);
-		System.out.println("user save:"+save+"\n\n\n\n\n");
+
 		return "index";
 	}
 }
