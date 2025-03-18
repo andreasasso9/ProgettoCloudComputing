@@ -17,6 +17,7 @@ jobs:
 
     env:
       KEY_COSMOSDB: ${{secrets.KEY_COSMOSDB }}
+      STORAGE_ACCOUNT_KEY: ${{secrets.STORAGE_ACCOUNT_KEY}}
 
     steps:
       - uses: actions/checkout@v4
@@ -48,6 +49,7 @@ jobs:
 
     env:
       KEY_COSMOSDB: ${{ secrets.KEY_COSMOSDB }}
+      STORAGE_ACCOUNT_KEY: ${{secrets.STORAGE_ACCOUNT_KEY}}
 
     steps:
       - name: Download artifact from build job
