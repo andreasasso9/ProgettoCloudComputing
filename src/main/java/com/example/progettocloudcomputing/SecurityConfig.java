@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
@@ -18,7 +19,8 @@ public class SecurityConfig {
 						.anyRequest().authenticated())
 				.oauth2Login(oauth2->oauth2
 						.loginPage("/login")
-						.defaultSuccessUrl("/index", true));
+						.defaultSuccessUrl("/index", true))
+				.csrf(AbstractHttpConfigurer::disable);
 
 
 		return http.build();

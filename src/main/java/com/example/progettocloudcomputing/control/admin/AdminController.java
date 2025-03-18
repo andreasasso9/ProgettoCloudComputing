@@ -7,7 +7,7 @@ import com.example.progettocloudcomputing.entity.Song;
 import com.example.progettocloudcomputing.entity.User;
 import com.example.progettocloudcomputing.service.SongService;
 import com.example.progettocloudcomputing.service.UserService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -16,38 +16,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/admin")
-@AllArgsConstructor
 public class AdminController {
 	private final UserService userService;
 	private final SongService songService;
 
-	@Value("spring.cloud.azure.storage.blob.connection-string")
-	private static String connectionString;
+	@Value("${STORAGE_ACCOUNT_KEY}")
+	private String blobAccountKey;
+
+	@Autowired
+	public AdminController(UserService userService, SongService songService) {
+		this.userService = userService;
+		this.songService = songService;
+	}
 
 	@PostMapping("/addSong")
-	public String addSong(
+	public RedirectView addSong(
 			@RequestParam("song_name") String name,
 			@RequestParam("artist_name") String singer,
 			@RequestParam("audio_file") MultipartFile file
-//			@RequestParam("user") User user
 	) throws IOException {
 		String email= ((DefaultOAuth2User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAttribute("email");
 		User user=userService.getById(email);
 
 		if (user == null)
-			return "login";
+			return new RedirectView("/login");
 
 		if (!user.getRole().equals("ADMIN"))
-			return "redirect:index";
+			return new RedirectView("/index");
+
+
+		String connectionString=String.format("DefaultEndpointsProtocol=https;AccountName=storageaccountprogetto;AccountKey=%s;EndpointSuffix=core.windows.net", blobAccountKey);
 
 		Song song=new Song();
 		song.setName(name);
 		song.setSinger(singer);
+		System.out.println(connectionString+"\n\n\n\n\n\n\n");
 
 		BlobContainerClient clientContainer=new BlobContainerClientBuilder()
 				.connectionString(connectionString)
@@ -60,7 +69,6 @@ public class AdminController {
 
 		songService.save(song);
 
-
-		return "";
+		return new RedirectView("/index");
 	}
 }

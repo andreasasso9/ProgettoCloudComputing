@@ -17,7 +17,7 @@
         <ul class="profile-menu">
             <li th:text="${user.getName()}"></li>
 
-            <li><a href="/admin/addSong.html">Aggiungi una canzone</a></li>
+            <li th:if='${user.getRole().equals("ADMIN")}'><a href="/admin/addSong.html">Aggiungi una canzone</a></li>
         </ul>
     </div>
 </header>
@@ -42,7 +42,6 @@
 </div>
 
 <script>
-    //todo aggiungere funzione per ottenere i nomi delle canzoni dal database e mostrarle in song list
     function getSong(name) {
         fetch('/song/get?name=' + encodeURIComponent(name))
             .then(response => {

@@ -23,12 +23,10 @@ public class PageController {
 	@GetMapping(value = {"/", "/index"})
 	public String index(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		User u=new User();
 
 		DefaultOAuth2User user=(DefaultOAuth2User) authentication.getPrincipal();
 
-		u.setName(user.getName());
-		u.setEmail(user.getAttribute("email"));
+		User u=userService.getById(user.getAttribute("email"));
 
 		model.addAttribute("user", u);
 
