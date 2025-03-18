@@ -10,7 +10,7 @@
 <body>
 <header>
     <label>
-        <input type="text" placeholder="Cerca una canzone...">
+        <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').textContent)">Cerca</button>
     </label>
     <div class="profile">
         <img th:src="@{/images/account.png}" alt="👤">
@@ -33,10 +33,7 @@
     </aside>
     <main>
         <h2>Lista Canzoni</h2>
-        <ul id="song-list">
-            <li onclick="getSong(this.textContent)">Ok</li>
-            <!--                    todo rimuovere li di prova-->
-        </ul>
+        <ul id="song-list"></ul>
     </main>
 </div>
 
@@ -47,27 +44,42 @@
 <script>
     //todo aggiungere funzione per ottenere i nomi delle canzoni dal database e mostrarle in song list
     function getSong(name) {
-        let currentUrl=window.location.hostname
-        // alert(currentUrl)
-        if (!currentUrl.endsWith('/'))
-            currentUrl+='/'
-        let url=currentUrl+'song/get='+name
-        alert(url)
-        // todo cambiare name in id
-        fetch(url)
+        fetch('/song/get?name=' + encodeURIComponent(name))
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Errore nel recupero del file audio')
+                    throw new Error('Errore nel recupero del file audio');
                 }
-                return response.text()
+                return response.json();
             })
-            .then(songUrl => {
-                let player = document.getElementById('myAudio')
-                player.src = songUrl
-                player.play()
+            .then(songs => {
+                let ul = document.getElementById("song-list");
+                ul.innerHTML = ""; // Pulisce la lista prima di aggiungere nuove canzoni
+
+                if (songs.length === 0) {
+                    let li = document.createElement("li");
+                    li.textContent = "Nessuna canzone trovata";
+                    ul.appendChild(li);
+                    return;
+                }
+
+                songs.forEach(song => {
+                    let li = document.createElement("li");
+
+                    // Creiamo il contenuto della lista
+                    li.innerHTML = `
+                <strong>${song.name}</strong> - ${song.singer}
+                <br>`;
+                    li.onclick=function () {
+                        let audioPlayer=document.getElementById('myAudio')
+                        audioPlayer.src=song.songUrl
+                        audioPlayer.play()
+                    }
+
+                    ul.appendChild(li);
+                });
             })
             .catch(error => {
-                console.error('Errore:', error)
+                console.error('Errore:', error);
             })
     }
 </script>
