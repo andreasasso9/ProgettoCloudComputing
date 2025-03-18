@@ -8,6 +8,7 @@ import com.example.progettocloudcomputing.entity.User;
 import com.example.progettocloudcomputing.service.SongService;
 import com.example.progettocloudcomputing.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,9 @@ import java.io.IOException;
 public class AdminController {
 	private final UserService userService;
 	private final SongService songService;
+
+	@Value("spring.cloud.azure.storage.blob.connection-string")
+	private static String connectionString;
 
 	@PostMapping("/addSong")
 	public String addSong(
@@ -46,7 +50,7 @@ public class AdminController {
 		song.setSinger(singer);
 
 		BlobContainerClient clientContainer=new BlobContainerClientBuilder()
-				.connectionString()
+				.connectionString(connectionString)
 				.containerName("songs-container")
 				.buildClient();
 
