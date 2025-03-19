@@ -97,6 +97,10 @@
             <groupId>com.azure.spring</groupId>
             <artifactId>spring-cloud-azure-starter-storage</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
