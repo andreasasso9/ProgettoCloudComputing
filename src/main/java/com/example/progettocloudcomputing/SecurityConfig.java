@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
@@ -15,12 +15,16 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeHttpRequests(request->request
-						.requestMatchers("/login", "/static/**", "/style/**", "/script/**", "/images/**").permitAll()
+						.requestMatchers("/login", "/static/**", "/style/**"/*, "/script/**"*//*, "/image/**"*/).permitAll()
+						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.anyRequest().authenticated())
 				.oauth2Login(oauth2->oauth2
 						.loginPage("/login")
-						.defaultSuccessUrl("/index", true))
-				.csrf(AbstractHttpConfigurer::disable);
+						.successHandler((request, response, authentication) -> {
+							SecurityContextHolder.getContext().setAuthentication(authentication);
+							response.sendRedirect("/index");
+						}))
+				.csrf(csrf->csrf.ignoringRequestMatchers("/admin/**"));
 
 
 		return http.build();

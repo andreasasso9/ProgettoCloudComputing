@@ -3,6 +3,7 @@ package com.example.progettocloudcomputing.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.security.core.Authentication;
 
 import java.io.Serializable;
 

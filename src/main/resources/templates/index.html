@@ -14,7 +14,7 @@
         <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').textContent)">Cerca</button>
     </label>
     <div class="profile">
-        <img th:src="@{/image/account.png}" alt="👤">
+        <img th:src="@{image/account.png}" alt="👤">
         <ul class="profile-menu">
             <li th:text="${user.getName()}" style="color: white"></li>
 

@@ -24,6 +24,11 @@
     </div>
     <a href="/oauth2/authorization/azure" class="microsoft-btn">Accedi con Microsoft</a>
 </div>
-
+<script>
+    function checkLoggedUser(user) {
+        if (user !== null)
+            window.location.replace("/index")
+    }
+</script>
 </body>
 </html>

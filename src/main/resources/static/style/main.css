@@ -87,4 +87,5 @@ a, li p {
 }
 a:hover, li p:hover{
     text-decoration: underline;
+    cursor: pointer;
 }

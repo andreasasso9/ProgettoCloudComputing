@@ -2,14 +2,14 @@
 function getSong(name) {
     fetch('/song/get?name=' + encodeURIComponent(name))
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Errore nel recupero del file audio');
-            }
+            if (!response.ok)
+                return Promise.reject(response)
+            alert(response.ok)
+            console.log(response.text)
             return response.json();
-        })
-        .then(songs => {
+        }).then(songs => {
             let ul = document.getElementById("song-list");
-            ul.innerHTML = ""; // Pulisce la lista prima di aggiungere nuove canzoni
+            ul.innerHTML = "";
 
             if (songs.length === 0) {
                 let li = document.createElement("li");
@@ -32,6 +32,7 @@ function getSong(name) {
                 strong.textContent=song.name
                 strong.style.fontSize='90%'
                 span.appendChild(strong)
+
                 let p=document.createElement('p')
                 p.textContent=song.singer
                 p.style.fontSize='70%'
@@ -54,8 +55,8 @@ function getSong(name) {
 
                 ul.appendChild(li);
             });
-        })
-        .catch(error =>console.error('Errore:', error))
+
+        }).catch(error =>console.error('Errore:', error))
 }
 
 function openModal() {

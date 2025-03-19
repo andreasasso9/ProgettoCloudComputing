@@ -9,6 +9,7 @@ import com.example.progettocloudcomputing.service.SongService;
 import com.example.progettocloudcomputing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/admin")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public class AdminController {
 	private final UserService userService;
 	private final SongService songService;
@@ -35,7 +37,7 @@ public class AdminController {
 		this.songService = songService;
 	}
 
-	@PostMapping("/addSong")
+	@PostMapping("/saveSong")
 	public RedirectView addSong(
 			@RequestParam("song_name") String name,
 			@RequestParam("artist_name") String singer,
@@ -56,7 +58,6 @@ public class AdminController {
 		Song song=new Song();
 		song.setName(name);
 		song.setSinger(singer);
-		System.out.println(connectionString+"\n\n\n\n\n\n\n");
 
 		BlobContainerClient clientContainer=new BlobContainerClientBuilder()
 				.connectionString(connectionString)
