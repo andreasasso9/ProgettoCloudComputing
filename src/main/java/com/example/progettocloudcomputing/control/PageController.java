@@ -29,7 +29,6 @@ public class PageController {
 	@GetMapping(value = {"/", "/index"})
 	public String index(Model model) {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(auth);
 		DefaultOAuth2User oAuth2User= (DefaultOAuth2User) auth.getPrincipal();
 		User u=userService.getById(oAuth2User.getAttribute("email"));
 
@@ -61,7 +60,6 @@ public class PageController {
 
 	@GetMapping("/admin/addSong")
 	public String addSong() {
-		System.out.println(SecurityContextHolder.getContext().getAuthentication());
 		return "/admin/addSong";
 	}
 }

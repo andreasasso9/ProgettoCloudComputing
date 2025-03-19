@@ -4,8 +4,7 @@ function getSong(name) {
         .then(response => {
             if (!response.ok)
                 return Promise.reject(response)
-            alert(response.ok)
-            console.log(response.text)
+
             return response.json();
         }).then(songs => {
             let ul = document.getElementById("song-list");
