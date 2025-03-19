@@ -1,9 +1,9 @@
 package com.example.progettocloudcomputing.entity;
 
+import com.google.gson.Gson;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import org.springframework.security.core.Authentication;
 
 import java.io.Serializable;
 
@@ -18,9 +18,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User{" +
-				", email='" + email + '\'' +
-				", name='" + name + '\'' +
-				'}';
+		Gson gson = new Gson();
+		return gson.toJson(this);
 	}
 }

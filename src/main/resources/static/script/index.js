@@ -44,6 +44,7 @@ function getSong(name) {
                 button.style.cursor="pointer"
                 button.textContent='+'
 
+
                 div.append(span, button)
                 li.appendChild(div)
 
@@ -70,20 +71,39 @@ function closeModal() {
 function addPlaylist() {
     let name = document.getElementById("playlistName").value.trim();
     if (name) {
-        let ul = document.getElementById("playlists");
-        let li = document.createElement("li");
-        li.innerHTML = `<a href="#">${name}</a>`;
-        ul.appendChild(li);
         document.getElementById("playlistName").value = "";
 
-        fetch("/playlist/create?name="+ encodeURIComponent(name)+"&email="+encodeURIComponent(email))
+        let user=document.querySelector('meta[name="user"]').getAttribute('content')
+        fetch("/playlist/create?name="+ encodeURIComponent(name)+"&user="+encodeURIComponent(user))
             .then(response=> {
                 if (!response.ok) {
                     throw new Error('Errore nella creazione della playlist')
                 }
             }).catch(e=>console.error(e))
         closeModal();
+        getPlaylists()
     } else {
         alert("Inserisci un nome valido!");
     }
+}
+
+function getPlaylists() {
+    let user=document.querySelector('meta[name="user"]').getAttribute('content')
+    let email=JSON.parse(user).email
+
+    fetch('playlist/get?email='+encodeURIComponent(email))
+        .then(response=> {
+            if (!response.ok)
+                Promise.reject(response)
+            return response.json()
+        }).then(playlists=>{
+            let ul=document.getElementById('playlists')
+            ul.innerHTML=''
+            playlists.forEach(playlist=>{
+                let li=document.createElement('li')
+                li.textContent=playlist.name
+                li.style.cursor='pointer'
+                ul.appendChild(li)
+            })
+    }).catch(error=>console.error(error))
 }

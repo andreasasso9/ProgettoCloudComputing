@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta th:content="${user}" name="user">
     <title>Streaming Musicale</title>
 
     <link rel="stylesheet" th:href="@{style/main.css}">
     <script type="text/javascript" th:src="@{script/index.js}"></script>
 </head>
-<body>
+<body onload="getPlaylists()">
 <header>
     <label>
         <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').textContent)">Cerca</button>
@@ -26,16 +27,16 @@
 <div class="container">
     <aside>
         <h3>Playlist</h3>
-        <ul id="playlists">
-            <li><p onclick="openModal()">Crea una playlist</p></li>
-        </ul>
+        <h4 style="cursor: pointer" onclick="openModal()">Crea una playlist</h4>
+        <ul id="playlists"></ul>
     </aside>
     <div id="playlistModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
         <div class="modal-content" style="background:#fff; padding:20px; width:300px; margin:100px auto; border-radius:5px; text-align:center;">
             <h4>Nuova Playlist</h4>
             <label for="playlistName"></label><input type="text" id="playlistName" placeholder="Nome della playlist" style="width:100%; padding:5px;">
             <br><br>
-<!--            <button th:onclick="'addPlaylist('+${user.getEmail()}+')'">Aggiungi</button>-->
+
+            <button onclick="addPlaylist()">Aggiungi</button>
             <button onclick="closeModal()">Annulla</button>
         </div>
     </div>
