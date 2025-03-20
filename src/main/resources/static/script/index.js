@@ -1,5 +1,6 @@
 
 function getSong(name) {
+    console.log('name= ' + name)
     fetch('/song/get?name=' + encodeURIComponent(name))
         .then(response => {
             if (!response.ok)

@@ -12,7 +12,7 @@
 <body onload="getPlaylists()">
 <header>
     <label>
-        <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').textContent)">Cerca</button>
+        <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').value)">Cerca</button>
     </label>
     <div class="profile">
         <img th:src="@{image/account.png}" alt="👤">

@@ -15,6 +15,9 @@ public class SongController {
 
 	@GetMapping("/get")
 	public List<Song> get(@RequestParam("name") String name) {
-		return songService.getByName(name);
+		System.out.println(name);
+		List<Song> list=songService.getByName(name);
+		System.out.println(list);
+		return list;
 	}
 }
