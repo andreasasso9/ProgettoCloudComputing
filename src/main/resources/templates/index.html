@@ -9,8 +9,8 @@
     <link rel="stylesheet" th:href="@{style/main.css}">
     <script type="text/javascript" th:src="@{script/index.js}"></script>
 </head>
-<body onload="getPlaylists()">
-<header>
+<body onload="getPlaylists(); applyStyle(document.getElementsByClassName('container').item(0))">
+<header id="header">
     <label>
         <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').value)">Cerca</button>
     </label>
@@ -41,13 +41,13 @@
         </div>
     </div>
     <main>
-        <h2>Lista Canzoni</h2>
+        <h2 style="color:white">Lista Canzoni</h2>
         <ul id="song-list"></ul>
     </main>
 </div>
 
-<div class="player">
+<footer id="player">
     <audio id="myAudio" controls></audio>
-</div>
+</footer>
 </body>
 </html>

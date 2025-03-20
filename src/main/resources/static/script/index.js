@@ -1,3 +1,10 @@
+function applyStyle(container) {
+    let header = document.getElementById('header');
+
+    let headerHeight = header.getBoundingClientRect().height;
+
+    container.style.top = headerHeight + "px";
+}
 
 function getSong(name) {
     console.log('name= ' + name)
@@ -31,11 +38,13 @@ function getSong(name) {
                 let strong=document.createElement("strong")
                 strong.textContent=song.name
                 strong.style.fontSize='90%'
+                strong.style.color='white'
                 span.appendChild(strong)
 
                 let p=document.createElement('p')
                 p.textContent=song.singer
                 p.style.fontSize='70%'
+                p.style.color='white'
                 span.appendChild(p)
 
                 let button=document.createElement('button')

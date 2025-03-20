@@ -1,19 +1,24 @@
 body {
+    width: 100%;
+    height: 100%;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    height: 100vh;
 }
 header {
-    background: #222;
+    background: #222222;
     padding: 10px;
     color: white;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 8%;
 }
 header input {
     width: 80%;
@@ -22,13 +27,13 @@ header input {
 .profile {
     position: absolute;
     cursor: pointer;
-    right: 10px;
+    right: 50px;
 }
 .profile-menu {
     display: none;
     position: relative;
     right: 0;
-    background: #222;
+    background: #222222;
     color: black;
     padding: 10px;
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
@@ -41,16 +46,22 @@ header input {
 .container {
     display: flex;
     flex: 1;
+    height: 84%;
+    width: 100%;
+    position: fixed;
 }
 aside {
     width: 20%;
-    background: #333;
+    height: 100vh;
+    background: #333333;
     color: white;
     padding: 10px;
 }
 main {
     flex: 1;
     padding: 10px;
+    background-color: #333333;
+    border-left: 2px solid #222222;
 }
 #song-list {
     list-style: none;
@@ -61,11 +72,15 @@ main {
     border-bottom: 1px solid #ddd;
     cursor: pointer;
 }
-.player {
-    background: #222;
+footer#player {
+    background: #222222;
     color: white;
     text-align: center;
     padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 8%;
 }
 
 .profile img {
