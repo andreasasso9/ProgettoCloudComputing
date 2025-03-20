@@ -21,6 +21,7 @@ function getSong(name) {
             if (songs.length === 0) {
                 let li = document.createElement("li");
                 li.textContent = "Nessuna canzone trovata";
+                li.style.color='white'
                 ul.appendChild(li);
                 return;
             }
