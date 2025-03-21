@@ -15,11 +15,11 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeHttpRequests(request->request
-						.requestMatchers("/login", "/static/**", "/style/**"/*, "/script/**"*//*, "/image/**"*/).permitAll()
+						.requestMatchers("/provalogin", "/login", "/static/**", "/style/**"/*, "/script/**"*//*, "/image/**"*/).permitAll()
 						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.anyRequest().authenticated())
 				.oauth2Login(oauth2->oauth2
-						.loginPage("/login")
+						.loginPage("/provalogin")
 						.successHandler((request, response, authentication) -> {
 							SecurityContextHolder.getContext().setAuthentication(authentication);
 							response.sendRedirect("/index");
