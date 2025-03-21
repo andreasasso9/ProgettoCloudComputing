@@ -119,7 +119,7 @@ function getPlaylists() {
 }
 
 function toggleAside(aside) {
-    if (aside.style.display === 'block')
+    if (aside.style.display !== 'none')
         aside.style.display='none'
     else
         aside.style.display='block'

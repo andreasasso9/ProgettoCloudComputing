@@ -15,7 +15,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 				.authorizeHttpRequests(request->request
-						.requestMatchers("/login", "/static/**", "/style/**").permitAll()
+						.requestMatchers("/login", "/static/**", "/style/**", "/user/login").permitAll()
 						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.anyRequest().authenticated())
 				.oauth2Login(oauth2->oauth2
@@ -25,7 +25,6 @@ public class SecurityConfig {
 							response.sendRedirect("/index");
 						}))
 				.csrf(csrf->csrf.ignoringRequestMatchers("/admin/**"));
-
 
 		return http.build();
 	}
