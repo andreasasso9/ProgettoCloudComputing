@@ -14,10 +14,10 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-				.authorizeHttpRequests(request->request
-						.requestMatchers("/provalogin", "/login", "/static/**", "/style/**"/*, "/script/**"*//*, "/image/**"*/).permitAll()
-						.requestMatchers("/admin/**").hasRole("ADMIN")
-						.anyRequest().authenticated())
+//				.authorizeHttpRequests(request->request
+//						.requestMatchers("/provalogin", "/login", "/static/**", "/style/**"/*, "/script/**"*//*, "/image/**"*/).permitAll()
+//						.requestMatchers("/admin/**").hasRole("ADMIN")
+//						.anyRequest().authenticated())
 				.oauth2Login(oauth2->oauth2
 						.loginPage("/provalogin")
 						.successHandler((request, response, authentication) -> {
