@@ -29,11 +29,12 @@ public class PageController {
 	@GetMapping(value = {"/", "/index"})
 	public String index(Model model) {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-		DefaultOAuth2User oAuth2User= (DefaultOAuth2User) auth.getPrincipal();
-		User u=userService.getById(oAuth2User.getAttribute("email"));
 
-		if (u==null) {
-			u=new User();
+		DefaultOAuth2User oAuth2User = (DefaultOAuth2User) auth.getPrincipal();
+		User u = userService.getById(oAuth2User.getAttribute("email"));
+
+		if (u == null) {
+			u = new User();
 			u.setEmail(oAuth2User.getAttribute("email"));
 			u.setName(oAuth2User.getName());
 			u.setPassword(oAuth2User.getAttribute("password"));
@@ -43,13 +44,13 @@ public class PageController {
 		}
 
 		if (u.getRole().equals("ADMIN")) {
-			List<GrantedAuthority> newAuthorities=new ArrayList<>(auth.getAuthorities());
+			List<GrantedAuthority> newAuthorities = new ArrayList<>(auth.getAuthorities());
 			newAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-			List<String> aud=oAuth2User.getAttribute("aud");
+			List<String> aud = oAuth2User.getAttribute("aud");
 
-			DefaultOAuth2User newOauth2User=new DefaultOAuth2User(newAuthorities, oAuth2User.getAttributes(), "sub");
+			DefaultOAuth2User newOauth2User = new DefaultOAuth2User(newAuthorities, oAuth2User.getAttributes(), "sub");
 
-			OAuth2AuthenticationToken newAuth=new OAuth2AuthenticationToken(newOauth2User, newAuthorities, aud.getFirst());
+			OAuth2AuthenticationToken newAuth = new OAuth2AuthenticationToken(newOauth2User, newAuthorities, aud.getFirst());
 			SecurityContextHolder.getContext().setAuthentication(newAuth);
 		}
 
@@ -61,10 +62,5 @@ public class PageController {
 	@GetMapping("/admin/addSong")
 	public String addSong() {
 		return "/admin/addSong";
-	}
-
-	@GetMapping("/provalogin")
-	public String provalogin() {
-		return "provalogin";
 	}
 }
