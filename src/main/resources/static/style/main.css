@@ -106,3 +106,9 @@ a:hover, li p:hover{
     text-decoration: underline;
     cursor: pointer;
 }
+
+@media screen and (max-width: 800px) {
+    aside {
+        display: none;
+    }
+}
