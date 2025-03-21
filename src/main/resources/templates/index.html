@@ -11,7 +11,7 @@
 </head>
 <body onload="getPlaylists(); applyStyle(document.getElementsByClassName('container').item(0))">
 <header id="header">
-    <button onclick="toggleAside(document.getElementById('aside'))"><img th:src="@{image/account.png}" alt="ooo"></button>
+    <button style="background: none; border: none; display: flex; float: left; color: white; font-size: large" onclick="toggleAside(document.getElementById('aside'))">☰</button>
     <label>
         <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').value)">Cerca</button>
     </label>
