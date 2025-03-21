@@ -4,22 +4,16 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #333333;
 }
 .login-container {
-    background: white;
+    background: #222222;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-.login-container input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+
 .login-container a {
     display: block;
     width: 100%;
@@ -32,13 +26,4 @@ body {
     font-weight: bold;
 }
 
-.space { padding: 20px }
-.login-btn {
-    background: #28a745;
-    padding: 10px;
-    color: white;
-    font-weight: bold;
-    border-radius: 5px;
-    border-style: none;
-}
 .microsoft-btn { background: darkblue; }

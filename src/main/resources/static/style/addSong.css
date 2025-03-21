@@ -4,10 +4,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f4f4f4;
+    background-color: #333333;
+    color: white;
 }
 .form-container {
-    background: white;
+    background: #222222;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -18,12 +19,9 @@ label, input {
     margin-bottom: 10px;
 }
 .submit {
-    background-color: #28a745;
-    color: white;
+    background-color: #333333;
     padding: 10px;
     border: none;
     cursor: pointer;
-}
-.submit:hover {
-    background-color: #218838;
+    color: white;
 }

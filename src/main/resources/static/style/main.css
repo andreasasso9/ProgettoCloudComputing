@@ -49,6 +49,7 @@ header input {
     height: 84%;
     width: 100%;
     position: fixed;
+    z-index: -1;
 }
 aside {
     width: 20%;
@@ -56,6 +57,7 @@ aside {
     background: #333333;
     color: white;
     padding: 10px;
+    display: block;
 }
 main {
     flex: 1;

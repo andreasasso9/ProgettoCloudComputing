@@ -11,6 +11,7 @@
 </head>
 <body onload="getPlaylists(); applyStyle(document.getElementsByClassName('container').item(0))">
 <header id="header">
+    <button onclick="toggleAside(document.getElementById('aside'))"><img th:src="@{image/account.png}" alt="ooo"></button>
     <label>
         <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').value)">Cerca</button>
     </label>
@@ -25,7 +26,7 @@
 </header>
 
 <div class="container">
-    <aside>
+    <aside id="aside">
         <h3>Playlist</h3>
         <h4 style="cursor: pointer" onclick="openModal()">Crea una playlist</h4>
         <ul id="playlists"></ul>
