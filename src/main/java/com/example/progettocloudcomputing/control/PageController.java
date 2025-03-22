@@ -31,13 +31,13 @@ public class PageController {
 		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
 
 		DefaultOAuth2User oAuth2User = (DefaultOAuth2User) auth.getPrincipal();
-		User u = userService.getById(oAuth2User.getAttribute("email"));
+		String email=oAuth2User.getAttribute("email")!=null?oAuth2User.getAttribute("email"):oAuth2User.getAttribute("preferred_username");
+		User u = userService.getById(email);
 
 		if (u == null) {
 			u = new User();
-			u.setEmail(oAuth2User.getAttribute("email"));
+			u.setEmail(email);
 			u.setName(oAuth2User.getName());
-			u.setPassword(oAuth2User.getAttribute("password"));
 			u.setRole("USER");
 
 			userService.save(u);
