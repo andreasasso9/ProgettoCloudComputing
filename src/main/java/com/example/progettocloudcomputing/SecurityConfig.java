@@ -25,6 +25,12 @@ public class SecurityConfig {
 							response.sendRedirect("/index");
 						}))
 				.csrf(csrf->csrf.ignoringRequestMatchers("/admin/**"));
+//				.logout(logout-> { logout
+//						.logoutUrl("/logout")
+//						.logoutSuccessUrl("/login")
+//						.clearAuthentication(true);
+//					SecurityContextHolder.clearContext();
+//				});
 
 		return http.build();
 	}

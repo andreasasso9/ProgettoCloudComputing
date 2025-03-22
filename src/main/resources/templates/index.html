@@ -21,6 +21,7 @@
             <li th:text="${user.getName()}" style="color: white"></li>
 
             <li th:if='${user.getRole().equals("ADMIN")}'><a href="/admin/addSong">Aggiungi una canzone</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
     </div>
 </header>

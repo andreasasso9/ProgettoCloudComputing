@@ -63,4 +63,10 @@ public class PageController {
 	public String addSong() {
 		return "/admin/addSong";
 	}
+
+	@GetMapping("/logout")
+	public String logout() {
+		SecurityContextHolder.getContext().setAuthentication(null);
+		return "login";
+	}
 }
