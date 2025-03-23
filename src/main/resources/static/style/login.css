@@ -13,6 +13,22 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
+	/* animation: light-pulse 3s ease-in-out infinite;*/
+}
+
+.login-container:hover {
+	animation: light-pulse 3s ease-in-out infinite;
+}
+@keyframes light-pulse {
+    0% {
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); /* Luce iniziale */
+    }
+    50% {
+        box-shadow: 0 0 20px 4px rgba(255, 255, 255, 0.8); /* Luce più intensa */
+    }
+    100% {
+        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); /* Torna alla luce iniziale */
+    }
 }
 
 .login-container a {

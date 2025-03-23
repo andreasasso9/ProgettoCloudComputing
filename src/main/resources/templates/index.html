@@ -13,7 +13,12 @@
 <header id="header">
     <button id="toggleAside" onclick="toggleAside(document.getElementById('aside'), this)">☰</button>
     <label>
-        <input id="search-input" type="text" placeholder="Cerca una canzone..." onkeydown="if (event.key === 'Enter') getSong(this.value)"><button onclick="getSong(document.getElementById('search-input').value)">Cerca</button>
+		<div class="search-container">
+			<input id="search-input" type="text" placeholder="Cerca una canzone..." onkeydown="if (event.key === 'Enter') getSong(this.value)">
+			<button onclick="getSong(document.getElementById('search-input').value)">
+				🔍
+			</button>
+		</div>
     </label>
     <div class="profile">
         <img th:src="@{image/account.png}" alt="👤">

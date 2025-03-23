@@ -114,6 +114,7 @@ function getPlaylists() {
                 let li=document.createElement('li')
                 li.textContent=playlist.name
 				li.style.pointer='cursor'
+				li.style.position='relative'
 				li.style.left=0
                 ul.appendChild(li)
             })
@@ -123,4 +124,5 @@ function getPlaylists() {
 function toggleAside() {
 	document.getElementById('aside').classList.toggle("toggle");
 	document.getElementById('main').classList.toggle("toggle");
+	document.getElementById('toggleAside').classList.toggle("toggle")
 }
