@@ -1,9 +1,10 @@
-function applyStyle(container) {
-    let header = document.getElementById('header');
+function applyStyle() {
+    let header = document.getElementById('header')
 
-    let headerHeight = header.getBoundingClientRect().height;
+    let headerHeight = header.getBoundingClientRect().height
 
-    container.style.top = headerHeight + "px";
+	let container=document.getElementsByClassName('container').item(0)
+    container.style.top = headerHeight + "px"
 }
 
 function getSong(name) {
@@ -112,15 +113,14 @@ function getPlaylists() {
             playlists.forEach(playlist=>{
                 let li=document.createElement('li')
                 li.textContent=playlist.name
-                li.style.cursor='pointer'
+				li.style.pointer='cursor'
+				li.style.left=0
                 ul.appendChild(li)
             })
     }).catch(error=>console.error(error))
 }
 
-function toggleAside(aside) {
-    if (aside.style.display !== 'none')
-        aside.style.display='none'
-    else
-        aside.style.display='block'
+function toggleAside() {
+	document.getElementById('aside').classList.toggle("toggle");
+	document.getElementById('main').classList.toggle("toggle");
 }

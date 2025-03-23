@@ -15,6 +15,6 @@ public class SongController {
 
 	@GetMapping("/get")
 	public List<Song> get(@RequestParam("name") String name) {
-		return songService.getByName(name);
+		return songService.getByName(name.trim());
 	}
 }

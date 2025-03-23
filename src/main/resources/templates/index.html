@@ -9,11 +9,11 @@
     <link rel="stylesheet" th:href="@{style/main.css}">
     <script type="text/javascript" th:src="@{script/index.js}"></script>
 </head>
-<body onload="getPlaylists(); applyStyle(document.getElementsByClassName('container').item(0))">
+<body onload="getPlaylists(); applyStyle()">
 <header id="header">
-    <button style="background: none; border: none; color: white; font-size: large; cursor: pointer; position: fixed; top: 4vh; left: 2vh" onclick="toggleAside(document.getElementById('aside'))">☰</button>
+    <button id="toggleAside" onclick="toggleAside(document.getElementById('aside'), this)">☰</button>
     <label>
-        <input id="search-input" type="text" placeholder="Cerca una canzone..."><button onclick="getSong(document.getElementById('search-input').value)">Cerca</button>
+        <input id="search-input" type="text" placeholder="Cerca una canzone..." onkeydown="if (event.key === 'Enter') getSong(this.value)"><button onclick="getSong(document.getElementById('search-input').value)">Cerca</button>
     </label>
     <div class="profile">
         <img th:src="@{image/account.png}" alt="👤">
@@ -42,7 +42,7 @@
             <button onclick="closeModal()">Annulla</button>
         </div>
     </div>
-    <main>
+    <main id="main">
         <h2 style="color:white">Lista Canzoni</h2>
         <ul id="song-list"></ul>
     </main>
