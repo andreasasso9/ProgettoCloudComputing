@@ -1,25 +1,27 @@
 package com.example.progettocloudcomputing.control;
 
 import com.example.progettocloudcomputing.entity.User;
-import com.example.progettocloudcomputing.service.UserService;
+/* import com.example.progettocloudcomputing.service.UserService; */
+
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.Authentication;
+/* import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority; */
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
+/* import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User; */
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
-import java.util.List;
+/* import java.util.ArrayList;
+import java.util.List; */
 
 @Controller
 @AllArgsConstructor
 public class PageController {
-	private final UserService userService;
+	/* private final UserService userService; */
 
 	@GetMapping("/login")
 	public String login() {
@@ -27,32 +29,11 @@ public class PageController {
 	}
 
 	@GetMapping(value = {"/", "/index"})
-	public String index(Model model) {
-		Authentication auth=SecurityContextHolder.getContext().getAuthentication();
-
-		DefaultOAuth2User oAuth2User = (DefaultOAuth2User) auth.getPrincipal();
-		String email=oAuth2User.getAttribute("email")!=null?oAuth2User.getAttribute("email"):oAuth2User.getAttribute("preferred_username");
-		User u = userService.getById(email);
-
-		if (u == null) {
-			u = new User();
-			u.setEmail(email);
-			u.setName(oAuth2User.getName());
-			u.setRole("USER");
-
-			userService.save(u);
-		}
-
-		if (u.getRole().equals("ADMIN")) {
-			List<GrantedAuthority> newAuthorities = new ArrayList<>(auth.getAuthorities());
-			newAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-			List<String> aud = oAuth2User.getAttribute("aud");
-
-			DefaultOAuth2User newOauth2User = new DefaultOAuth2User(newAuthorities, oAuth2User.getAttributes(), "sub");
-
-			OAuth2AuthenticationToken newAuth = new OAuth2AuthenticationToken(newOauth2User, newAuthorities, aud.getFirst());
-			SecurityContextHolder.getContext().setAuthentication(newAuth);
-		}
+	public String index(HttpServletRequest request, Model model) {
+		/* System.out.println("page controller\n\n\n\n\n"); */
+		User u=(User) request.getSession().getAttribute("user");
+		System.out.println(u+"\n\n\n\n");
+		System.out.println(SecurityContextHolder.getContext().getAuthentication()+"\n\n\n\n");
 
 		model.addAttribute("user", u);
 
