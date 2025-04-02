@@ -29,7 +29,6 @@ function createLikeButton(song) {
 
 	// Aggiunta dell'evento per cambiare stile quando è selezionato
 	checkbox.addEventListener('change', () => {
-		alert(checkbox.checked)
 		if (checkbox.checked) {
 			label.style.transform = 'scale(1.1)'
 			icon.textContent = '❤️' // Icona quando è selezionato
