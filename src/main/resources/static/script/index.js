@@ -21,10 +21,14 @@ function createLikeButton(song) {
 
 	// Creazione dell'icona 👍
 	let icon = document.createElement('span')
-	if (user.favoriteSongs.includes(song.id))
+	if (user.favoriteSongs.includes(song.id)) {
 		icon.textContent = '❤️' // Icona quando è selezionato
-	else
+		checkbox.checked = true // Se la canzone è nei preferiti, seleziona la checkbox
+	}
+	else {
 		icon.textContent = '🤍'
+		checkbox.checked = false // Se la canzone non è nei preferiti, deseleziona la checkbox
+	}
 	icon.style.transition = 'transform 0.2s ease'
 
 	// Aggiunta dell'evento per cambiare stile quando è selezionato
@@ -67,28 +71,6 @@ function applyStyle() {
 
 	let container=document.getElementsByClassName('container').item(0)
     container.style.top = headerHeight + "px"
-}
-
-function setFavoriteSong(songId, add) {
-	if (add)
-		fetch('/user/addFavorite?email='+encodeURIComponent(user.email)+'&songId='+encodeURIComponent(songId))
-					.then(response => {
-						if (!response.ok)
-							return Promise.reject(response)
-						user.favoriteSongs.push(songId)
-						return response.json()
-					}).catch(error => console.error('Errore:', error))
-	else 
-		fetch('/user/removeFavorite?email='+encodeURIComponent(user.email)+'&songId='+encodeURIComponent(songId))
-					.then(response => {
-						if (!response.ok)
-							return Promise.reject(response)
-						let index=user.favoriteSongs.indexOf(songId)
-						if (index > -1)
-							user.favoriteSongs.splice(index, 1)
-						return response.json()
-					}).catch(error => console.error('Errore:', error))
-
 }
 
 function createSongsList(songs, ul) {
