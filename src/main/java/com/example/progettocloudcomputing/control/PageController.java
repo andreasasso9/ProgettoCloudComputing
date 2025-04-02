@@ -1,22 +1,13 @@
 package com.example.progettocloudcomputing.control;
 
 import com.example.progettocloudcomputing.entity.User;
-/* import com.example.progettocloudcomputing.service.UserService; */
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-/* import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority; */
 import org.springframework.security.core.context.SecurityContextHolder;
-/* import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User; */
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-/* import java.util.ArrayList;
-import java.util.List; */
 
 @Controller
 @AllArgsConstructor

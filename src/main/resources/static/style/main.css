@@ -154,7 +154,7 @@ button#toggleAside.toggle {
 	transition: ease-in-out 0.5s;
 }
 
-#playlistModal {
+.modal {
 	display:none;
 	position:fixed;
 	top:0;

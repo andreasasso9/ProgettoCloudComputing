@@ -40,7 +40,7 @@ public class SecurityConfig {
 				.oauth2Login(oauth2->oauth2
 						.loginPage("/login")
 						.successHandler((request, response, authentication) -> loginSuccessHandler(request, response, authentication)))
-				.csrf(csrf->csrf.ignoringRequestMatchers("/admin/**"))
+				.csrf(csrf->csrf.ignoringRequestMatchers("/admin/**", "/playlist/**"))
 				.logout(logout-> { logout
 						.logoutUrl("/logout")
 						.logoutSuccessUrl("/login")
@@ -70,10 +70,12 @@ public class SecurityConfig {
 			newAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 			List<String> aud = oAuth2User.getAttribute("aud");
 
-			DefaultOAuth2User newOauth2User = new DefaultOAuth2User(newAuthorities, oAuth2User.getAttributes(), "sub");
+			if (aud != null && !aud.isEmpty()) {
+				DefaultOAuth2User newOauth2User = new DefaultOAuth2User(newAuthorities, oAuth2User.getAttributes(), "sub");
 
-			OAuth2AuthenticationToken newAuth = new OAuth2AuthenticationToken(newOauth2User, newAuthorities, aud.getFirst());
-			SecurityContextHolder.getContext().setAuthentication(newAuth);
+				OAuth2AuthenticationToken newAuth = new OAuth2AuthenticationToken(newOauth2User, newAuthorities, aud.getFirst());
+				SecurityContextHolder.getContext().setAuthentication(newAuth);
+			}
 		} else
 			SecurityContextHolder.getContext().setAuthentication(auth);
 		request.getSession().setAttribute("user", u);

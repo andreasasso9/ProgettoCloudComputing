@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +17,7 @@ public class User implements Serializable {
 	private String name;
 	private String password;
 	private String role;
+	private List<String> favoriteSongs = new ArrayList<>();
 
 	@Override
 	public String toString() {

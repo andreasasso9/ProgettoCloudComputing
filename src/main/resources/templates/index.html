@@ -9,7 +9,8 @@
     <link rel="stylesheet" th:href="@{style/main.css}">
     <script type="text/javascript" th:src="@{script/index.js}"></script>
 </head>
-<body onload="getPlaylists(); applyStyle()">
+
+<body onload="applyStyle()">
 <header id="header">
     <button id="toggleAside" onclick="toggleAside(document.getElementById('aside'), this)">☰</button>
     <label>
@@ -33,20 +34,8 @@
 
 <div class="container">
     <aside id="aside">
-        <h3>Playlist</h3>
-        <h4 style="cursor: pointer" onclick="openModal()">Crea una playlist</h4>
-        <ul id="playlists"></ul>
+        <h3 style="cursor: pointer;" onclick="getFavoriteSongs()">Preferiti</h3>
     </aside>
-    <div id="playlistModal" class="modal">
-        <div class="modal-content">
-            <h4>Nuova Playlist</h4>
-            <label for="playlistName"></label><input type="text" id="playlistName" placeholder="Nome della playlist" style="width:100%; padding:5px;">
-            <br><br>
-
-            <button onclick="addPlaylist()">Aggiungi</button>
-            <button onclick="closeModal()">Annulla</button>
-        </div>
-    </div>
     <main id="main">
         <h2 style="color:white">Lista Canzoni</h2>
         <ul id="song-list"></ul>
@@ -56,5 +45,6 @@
 <footer id="player">
     <audio id="myAudio" controls></audio>
 </footer>
+
 </body>
 </html>

@@ -2,17 +2,15 @@ package com.example.progettocloudcomputing.service;
 
 import com.example.progettocloudcomputing.entity.User;
 import com.example.progettocloudcomputing.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
+@AllArgsConstructor
 @Service
 public class UserService {
 	private final UserRepository userRepository;
-
-	@Autowired
-	public UserService(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
 
 	public boolean save(User user) {
 		userRepository.save(user);
@@ -21,5 +19,15 @@ public class UserService {
 
 	public User getById(String email) {
 		return userRepository.findById(email).orElse(null);
+	}
+
+	public boolean addFavorite(String email, String id) {
+		User user = userRepository.findById(email).orElse(null);
+		if (user != null) {
+			user.getFavoriteSongs().add(id);
+			userRepository.save(user);
+			return true;
+		}
+		return false;
 	}
 }

@@ -20,4 +20,8 @@ public class SongService {
 	public List<Song> getByName(String name) {
 		return songRepository.findByName(name);
 	}
+
+	public Song getById(String songId) {
+		return songRepository.findById(songId).orElse(null);
+	}
 }
