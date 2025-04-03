@@ -3,11 +3,11 @@ package com.example.progettocloudcomputing.control.admin;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobContainerClientBuilder;
+import com.azure.storage.blob.models.BlobHttpHeaders;
 import com.example.progettocloudcomputing.entity.Song;
 import com.example.progettocloudcomputing.entity.User;
 import com.example.progettocloudcomputing.service.SongService;
 import com.example.progettocloudcomputing.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.security.MessageDigest;
+import java.util.Base64;
 
 @RestController
 @RequestMapping("/admin")
@@ -31,7 +34,6 @@ public class AdminController {
 	@Value("${STORAGE_ACCOUNT_KEY}")
 	private String blobAccountKey;
 
-	@Autowired
 	public AdminController(UserService userService, SongService songService) {
 		this.userService = userService;
 		this.songService = songService;
@@ -64,12 +66,37 @@ public class AdminController {
 				.containerName("songs-container")
 				.buildClient();
 
+		BlobHttpHeaders headers=new BlobHttpHeaders().setContentType("audio/mpeg").setContentMd5(calculateMD5(file.getInputStream()));
+				
+
 		BlobClient client= clientContainer.getBlobClient(name);
+		
 		client.upload(file.getInputStream(), file.getSize(), true);
+		client.setHttpHeaders(headers);
+		
 		song.setSongUrl(client.getBlobUrl());
 
 		songService.save(song);
 
 		return new RedirectView("/index");
 	}
+
+	private byte[] calculateMD5(InputStream inputStream) throws IOException {
+    try {
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        byte[] buffer = new byte[8192];
+        int bytesRead;
+
+        // Legge il flusso di byte e aggiorna l'hash
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            md5.update(buffer, 0, bytesRead);
+        }
+
+        // Restituisce l'MD5 come stringa Base64
+        byte[] md5Bytes = md5.digest();
+        return Base64.getEncoder().encode(md5Bytes);
+    } catch (Exception e) {
+        throw new IOException("Errore nel calcolare MD5", e);
+    }
+}
 }

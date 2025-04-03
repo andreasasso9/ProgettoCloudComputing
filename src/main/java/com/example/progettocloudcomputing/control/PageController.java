@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @AllArgsConstructor
 public class PageController {
-	/* private final UserService userService; */
 
 	@GetMapping("/login")
 	public String login() {
@@ -21,10 +20,7 @@ public class PageController {
 
 	@GetMapping(value = {"/", "/index"})
 	public String index(HttpServletRequest request, Model model) {
-		/* System.out.println("page controller\n\n\n\n\n"); */
 		User u=(User) request.getSession().getAttribute("user");
-		System.out.println(u+"\n\n\n\n");
-		System.out.println(SecurityContextHolder.getContext().getAuthentication()+"\n\n\n\n");
 
 		model.addAttribute("user", u);
 

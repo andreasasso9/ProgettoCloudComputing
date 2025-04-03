@@ -114,6 +114,7 @@ function createSongsList(songs, ul) {
 		span.onclick=() => {
 			let audioPlayer=document.getElementById('myAudio')
 			audioPlayer.src=song.songUrl
+			
 			audioPlayer.play()
 		}
 
