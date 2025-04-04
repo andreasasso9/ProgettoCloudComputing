@@ -229,4 +229,8 @@ button#toggleAside.toggle {
 		position: relative;
 		margin: auto;
 	}
+
+	footer#player {
+		padding: 30px;
+	}
 }
