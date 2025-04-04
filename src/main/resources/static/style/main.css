@@ -212,6 +212,7 @@ button#toggleAside.toggle {
 		position: relative;
 		margin-right: auto;
 		max-width: 20%;
+		height: fit-content;
 		top: 1px;
 		left: 1px;
 	}
@@ -225,7 +226,7 @@ button#toggleAside.toggle {
 	}
 
 	audio {
-		width: 45%;
+		width: 10vh;
 		position: relative;
 		margin: auto;
 	}
