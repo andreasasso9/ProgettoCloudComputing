@@ -124,9 +124,26 @@ function createSongsList(songs, ul) {
 			audioPlayer.src=song.songUrl
 			
 			audioPlayer.play()
+
+			let songInfo=document.getElementById('song-info')
+			songInfo.innerHTML=''
+
+			let infoName=document.createElement('p')
+			infoName.id='info'
+			infoName.textContent=song.name
+			infoName.style.margin='0px 0px 5px 0px'
+
+			let infoSinger=document.createElement('p')
+			infoSinger.id='info-singer'
+			infoSinger.textContent=song.singer
+			infoSinger.style.margin='0'
+
+			songInfo.append(infoName, infoSinger)
+			songInfo.style.visibility='visible'
+
+
 			queue.enqueue(songsGlobal.filter(s => s.id !== song.id))
 			queue.shuffle()
-			console.log(queue.toString())
 
 			audioPlayer.addEventListener('ended', () => {
 				if (!queue.isEmpty()) {
