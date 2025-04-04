@@ -7,10 +7,11 @@
     <title>Streaming Musicale</title>
 
     <link rel="stylesheet" th:href="@{style/main.css}">
+	<script type="text/javascript" th:src="@{script/queue.js}"></script>
     <script type="text/javascript" th:src="@{script/index.js}"></script>
 </head>
 
-<body onload="applyStyle()">
+<body onload="init()">
 <header id="header">
     <button id="toggleAside" onclick="toggleAside(document.getElementById('aside'), this)">☰</button>
     <label>

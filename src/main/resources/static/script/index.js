@@ -1,8 +1,13 @@
-const user=JSON.parse(document.querySelector('meta[name="user"]').getAttribute('content'))
 
+const user=JSON.parse(document.querySelector('meta[name="user"]').getAttribute('content'))
+const queue=new Queue()
+const songsGlobal=[]
+
+function init() {
+	applyStyle()
+}
 
 function createLikeButton(song) {
-	// Creazione del contenitore
 	let label = document.createElement('label')
 	label.style.display = 'inline-flex'
 	label.style.alignItems = 'center'
@@ -14,28 +19,26 @@ function createLikeButton(song) {
 	label.style.borderRadius = '50%'
 	label.style.transition = 'background-color 0.3s ease, transform 0.2s ease'
 
-	// Creazione dell'input checkbox
+	
 	let checkbox = document.createElement('input')
 	checkbox.type = 'checkbox'
-	checkbox.style.display = 'none' // Nasconde la checkbox
+	checkbox.style.display = 'none'
 
-	// Creazione dell'icona 👍
 	let icon = document.createElement('span')
 	if (user.favoriteSongs.includes(song.id)) {
-		icon.textContent = '❤️' // Icona quando è selezionato
-		checkbox.checked = true // Se la canzone è nei preferiti, seleziona la checkbox
+		icon.textContent = '❤️'
+		checkbox.checked = true
 	}
 	else {
 		icon.textContent = '🤍'
-		checkbox.checked = false // Se la canzone non è nei preferiti, deseleziona la checkbox
+		checkbox.checked = false
 	}
 	icon.style.transition = 'transform 0.2s ease'
 
-	// Aggiunta dell'evento per cambiare stile quando è selezionato
 	checkbox.addEventListener('change', () => {
 		if (checkbox.checked) {
 			label.style.transform = 'scale(1.1)'
-			icon.textContent = '❤️' // Icona quando è selezionato
+			icon.textContent = '❤️'
 			fetch('/user/addFavorite?email='+encodeURIComponent(user.email)+'&songId='+encodeURIComponent(song.id))
 				.then(response => {
 					if (!response.ok)
@@ -45,7 +48,7 @@ function createLikeButton(song) {
 				}).catch(error => console.error('Errore:', error))
 		} else {
 			label.style.transform = 'scale(1)'
-			icon.textContent = '🤍' // Icona quando non è selezionato
+			icon.textContent = '🤍'
 			fetch('/user/removeFavorite?email='+encodeURIComponent(user.email)+'&songId='+encodeURIComponent(song.id))
 				.then(response => {
 					if (!response.ok)
@@ -58,7 +61,6 @@ function createLikeButton(song) {
 		}
 	})
 
-	// Aggiunta degli elementi al DOM
 	label.appendChild(checkbox)
 	label.appendChild(icon)
 	return label
@@ -74,6 +76,11 @@ function applyStyle() {
 }
 
 function createSongsList(songs, ul) {
+	songsGlobal.forEach(s => {
+		songsGlobal.pop(s)
+	})
+	songsGlobal.push(...songs)
+
 	ul.innerHTML = ""
 
 	if (songs.length === 0) {
@@ -112,10 +119,27 @@ function createSongsList(songs, ul) {
 		li.appendChild(div)
 
 		span.onclick=() => {
+			queue.clear()
 			let audioPlayer=document.getElementById('myAudio')
 			audioPlayer.src=song.songUrl
 			
 			audioPlayer.play()
+			queue.enqueue(songsGlobal.filter(s => s.id !== song.id))
+			queue.shuffle()
+			console.log(queue.toString())
+
+			audioPlayer.addEventListener('ended', () => {
+				if (!queue.isEmpty()) {
+					let nextSong=queue.dequeue()
+					audioPlayer.src=nextSong.songUrl
+					audioPlayer.play()
+				} else {
+					queue.enqueue(songsGlobal)
+					queue.shuffle()
+					audioPlayer.src=queue.dequeue().songUrl
+					audioPlayer.play()
+				}
+			})
 		}
 
 		ul.appendChild(li)
