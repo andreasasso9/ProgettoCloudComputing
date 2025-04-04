@@ -211,7 +211,6 @@ button#toggleAside.toggle {
 	#song-info {
 		position: relative;
 		margin-right: auto;
-		max-width: 20%;
 		height: fit-content;
 		top: 1px;
 		left: 1px;
