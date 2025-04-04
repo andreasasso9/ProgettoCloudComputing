@@ -129,7 +129,7 @@ function createSongsList(songs, ul) {
 			songInfo.innerHTML=''
 
 			let infoName=document.createElement('p')
-			infoName.id='info'
+			infoName.id='info-name'
 			infoName.textContent=song.name
 			infoName.style.margin='0px 0px 5px 0px'
 
