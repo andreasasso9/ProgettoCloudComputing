@@ -139,7 +139,7 @@ function createSongsList(songs, ul) {
 			infoSinger.style.margin='0'
 
 			songInfo.append(infoName, infoSinger)
-			songInfo.style.visibility='visible'
+			songInfo.style.display='list-item'
 
 
 			queue.enqueue(songsGlobal.filter(s => s.id !== song.id))

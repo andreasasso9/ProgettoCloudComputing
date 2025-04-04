@@ -92,6 +92,7 @@ main {
     background-color: #333333;
 	overflow: auto;
 	width: 80%;
+	margin-bottom: 10%;
 }
 main.toggle {
 	width: 100%;
@@ -164,10 +165,9 @@ button#toggleAside.toggle {
 	background-color: #444444;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	visibility: hidden;
 	max-height: 50%;
 	min-width: 15%;
-	display: list-item;
+	display: none;
 }
 
 #song-info p#info-name {
@@ -225,8 +225,8 @@ button#toggleAside.toggle {
 	}
 
 	audio {
-		width: 40%;
-		position: fixed;
-		bottom: 2vh;
+		width: 45%;
+		position: relative;
+		margin: auto;
 	}
 }
