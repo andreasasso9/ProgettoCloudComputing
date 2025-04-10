@@ -2,9 +2,10 @@
 const user=JSON.parse(document.querySelector('meta[name="user"]').getAttribute('content'))
 const queue=new Queue()
 const songsGlobal=[]
+const playingAnimation=document.createElement('div')
 
 function init() {
-	applyStyle()
+	playingAnimation.classList.add('playing-indicator')
 }
 
 function createLikeButton(song) {
@@ -78,6 +79,15 @@ async function setAndPlayAudio(audioPlayer, song) {
 		audioPlayer.src = audioUrl;
 		audioPlayer.play();
 
+		let ul=document.getElementById('song-list')
+		ul.querySelectorAll('li').forEach(li => {
+			if (li.dataset.songId === song.id) {
+				li.appendChild(playingAnimation)
+				playingAnimation.style.display='block'
+			}
+		})
+		
+
 		queue.enqueue(songsGlobal.filter(s => s.id !== song.id))
 		queue.shuffle()
 
@@ -94,12 +104,14 @@ async function setAndPlayAudio(audioPlayer, song) {
 			}
 		})
 
+		audioPlayer.onpause=() => playingAnimation.style.display='none'
+		audioPlayer.onplay=() => playingAnimation.style.display='block'
+
 		audioPlayer.style.float='right'
 	} catch (error) {
 		console.error('Errore:', error);
 	}
 }
-
 
 function createSongsList(songs, ul) {
 	songsGlobal.forEach(s => {
@@ -119,6 +131,8 @@ function createSongsList(songs, ul) {
 
 	songs.forEach(song => {
 		let li = document.createElement("li")
+		li.dataset.songId = song.id
+
 		let div=document.createElement("div")
 
 		div.style.display="flex"
@@ -131,13 +145,13 @@ function createSongsList(songs, ul) {
 		strong.textContent=song.name
 		strong.style.fontSize='90%'
 		strong.style.color='white'
-		span.appendChild(strong)
 
 		let p=document.createElement('p')
 		p.textContent=song.singer
 		p.style.fontSize='70%'
 		p.style.color='white'
-		span.appendChild(p)
+
+		span.append(strong, p)
 
 		let label=createLikeButton(song)
 
@@ -146,9 +160,7 @@ function createSongsList(songs, ul) {
 
 		span.onclick=() => {
 			queue.clear()
-			let audioPlayer = document.getElementById('myAudio');
-			audioPlayer.pause()
-
+			let audioPlayer=document.getElementById('myAudio')
 			setAndPlayAudio(audioPlayer, song)
 
 
