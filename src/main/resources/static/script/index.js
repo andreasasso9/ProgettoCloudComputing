@@ -158,11 +158,10 @@ function createSongsList(songs, ul) {
 					audioPlayer.play()
 				}
 			})
+			document.getElementById('myAudio').style.float='right'
 		}
 
 		ul.appendChild(li)
-
-		document.getElementById('player').style.justifyContent='space-between'
 	})
 }
 
