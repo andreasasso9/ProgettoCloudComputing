@@ -66,14 +66,40 @@ function createLikeButton(song) {
 	return label
 }
 
-function applyStyle() {
-    /* let header = document.getElementById('header')
+async function setAndPlayAudio(audioPlayer, song) {
+	try {
+		const response = await fetch(song.songUrl);
+		if (!response.ok) {
+			throw new Error('Errore nella risposta di rete');
+		}
+		const blob = await response.blob();
+		const audioUrl = URL.createObjectURL(blob);
 
-    let headerHeight = header.getBoundingClientRect().height
+		audioPlayer.src = audioUrl;
+		audioPlayer.play();
 
-	let container=document.getElementsByClassName('container').item(0)
-    container.style.top = headerHeight + "px" */
+		queue.enqueue(songsGlobal.filter(s => s.id !== song.id))
+		queue.shuffle()
+
+		audioPlayer.addEventListener('ended', () => {
+			if (!queue.isEmpty()) {
+				let nextSong=queue.dequeue()
+				audioPlayer.src=nextSong.songUrl
+				audioPlayer.play()
+			} else {
+				queue.enqueue(songsGlobal)
+				queue.shuffle()
+				audioPlayer.src=queue.dequeue().songUrl
+				audioPlayer.play()
+			}
+		})
+
+		audioPlayer.style.float='right'
+	} catch (error) {
+		console.error('Errore:', error);
+	}
 }
+
 
 function createSongsList(songs, ul) {
 	songsGlobal.forEach(s => {
@@ -120,11 +146,11 @@ function createSongsList(songs, ul) {
 
 		span.onclick=() => {
 			queue.clear()
-			let audioPlayer=document.getElementById('myAudio')
-			audioPlayer.src=song.songUrl
+			let audioPlayer = document.getElementById('myAudio');
+			audioPlayer.pause()
 
-			audioPlayer.load()
-			audioPlayer.play()
+			setAndPlayAudio(audioPlayer, song)
+
 
 			let songInfo=document.getElementById('song-info')
 			songInfo.innerHTML=''
@@ -142,24 +168,6 @@ function createSongsList(songs, ul) {
 			songInfo.append(infoName, infoSinger)
 			songInfo.style.visibility='visible'
 			songInfo.style.display='block'
-
-
-			queue.enqueue(songsGlobal.filter(s => s.id !== song.id))
-			queue.shuffle()
-
-			audioPlayer.addEventListener('ended', () => {
-				if (!queue.isEmpty()) {
-					let nextSong=queue.dequeue()
-					audioPlayer.src=nextSong.songUrl
-					audioPlayer.play()
-				} else {
-					queue.enqueue(songsGlobal)
-					queue.shuffle()
-					audioPlayer.src=queue.dequeue().songUrl
-					audioPlayer.play()
-				}
-			})
-			document.getElementById('myAudio').style.float='right'
 		}
 
 		ul.appendChild(li)
