@@ -67,12 +67,12 @@ function createLikeButton(song) {
 }
 
 function applyStyle() {
-    let header = document.getElementById('header')
+    /* let header = document.getElementById('header')
 
     let headerHeight = header.getBoundingClientRect().height
 
 	let container=document.getElementsByClassName('container').item(0)
-    container.style.top = headerHeight + "px"
+    container.style.top = headerHeight + "px" */
 }
 
 function createSongsList(songs, ul) {
@@ -140,6 +140,7 @@ function createSongsList(songs, ul) {
 			infoSinger.style.margin='0'
 
 			songInfo.append(infoName, infoSinger)
+			songInfo.style.visibility='visible'
 			songInfo.style.display='block'
 
 
