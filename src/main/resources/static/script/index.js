@@ -122,7 +122,8 @@ function createSongsList(songs, ul) {
 			queue.clear()
 			let audioPlayer=document.getElementById('myAudio')
 			audioPlayer.src=song.songUrl
-			
+
+			audioPlayer.load()
 			audioPlayer.play()
 
 			let songInfo=document.getElementById('song-info')
@@ -139,7 +140,7 @@ function createSongsList(songs, ul) {
 			infoSinger.style.margin='0'
 
 			songInfo.append(infoName, infoSinger)
-			songInfo.style.display='list-item'
+			songInfo.style.display='block'
 
 
 			queue.enqueue(songsGlobal.filter(s => s.id !== song.id))
@@ -160,6 +161,8 @@ function createSongsList(songs, ul) {
 		}
 
 		ul.appendChild(li)
+
+		document.getElementById('player').style.justifyContent='space-between'
 	})
 }
 
