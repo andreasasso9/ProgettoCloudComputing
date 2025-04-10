@@ -68,6 +68,7 @@ function createLikeButton(song) {
 }
 
 async function setAndPlayAudio(audioPlayer, song) {
+	audioPlayer.pause()
 	try {
 		const response = await fetch(song.songUrl);
 		if (!response.ok) {
