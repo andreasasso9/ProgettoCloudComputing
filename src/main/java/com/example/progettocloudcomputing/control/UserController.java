@@ -32,9 +32,13 @@ public class UserController {
 	}
 
 	@GetMapping("/addFavorite")
-	public boolean addFavorite(@RequestParam("email") String email, @RequestParam("songId") String songId) {
+	public User addFavorite(@RequestParam("email") String email, @RequestParam("songId") String songId) {
 		boolean response=userService.addFavorite(email, songId);
-		return response;
+		if (response) {
+			User user=userService.getById(email);
+			return user;
+		}
+		return null;
 	}
 
 	@GetMapping("/getFavoriteSongs")
@@ -51,14 +55,23 @@ public class UserController {
 	}
 
 	@GetMapping("/removeFavorite")
-	public boolean removeFavorite(@RequestParam("songId") String songId, @RequestParam("email") String email) {
+	public User removeFavorite(@RequestParam("songId") String songId, @RequestParam("email") String email) {
 		User user=userService.getById(email);
 		if (user!=null) {
 			user.getFavoriteSongs().remove(songId);
 			userService.save(user);
-			return true;
+			return user;
 		}
-		return false;
+		return null;
+	}
+
+	@GetMapping("/get")
+	public User getUser(@RequestParam("email") String email) {
+		User user=userService.getById(email);
+		if (user!=null) {
+			return user;
+		}
+		return null;
 	}
 	
 }

@@ -1,11 +1,25 @@
 
-const user=JSON.parse(document.querySelector('meta[name="user"]').getAttribute('content'))
+function getUser() {
+	let email=JSON.parse(document.querySelector('meta[name="user"]').getAttribute('content')).email
+	fetch('/user/get?email=' + encodeURIComponent(email))
+		.then(response => {
+			if (!response.ok)
+				return Promise.reject(response)
+
+			return response.json()
+		}).then(data => {
+			user=data
+		})
+}
+let user
 const queue=new Queue()
 const songsGlobal=[]
 const playingAnimation=document.createElement('div')
 
 function init() {
 	playingAnimation.classList.add('playing-indicator')
+	getUser()
+	console.log(user)
 }
 
 function createLikeButton(song) {
@@ -40,24 +54,30 @@ function createLikeButton(song) {
 		if (checkbox.checked) {
 			label.style.transform = 'scale(1.1)'
 			icon.textContent = '❤️'
+			
 			fetch('/user/addFavorite?email='+encodeURIComponent(user.email)+'&songId='+encodeURIComponent(song.id))
 				.then(response => {
 					if (!response.ok)
 						return Promise.reject(response)
-					user.favoriteSongs.push(song.id)
+					
 					return response.json()
+				}).then((data) => {
+					console.log(data)
+					user.favoriteSongs=data.favoriteSongs
 				}).catch(error => console.error('Errore:', error))
 		} else {
 			label.style.transform = 'scale(1)'
 			icon.textContent = '🤍'
+			
 			fetch('/user/removeFavorite?email='+encodeURIComponent(user.email)+'&songId='+encodeURIComponent(song.id))
 				.then(response => {
 					if (!response.ok)
 						return Promise.reject(response)
-					let index=user.favoriteSongs.indexOf(song.id)
-					if (index > -1)
-						user.favoriteSongs.splice(index, 1)
+					
 					return response.json()
+				}).then((data) => {
+					console.log(data)
+					user.favoriteSongs=data.favoriteSongs
 				}).catch(error => console.error('Errore:', error))
 		}
 	})
@@ -209,7 +229,7 @@ function toggleAside() {
 }
 
 function getFavoriteSongs() {
-	let email=JSON.parse(document.querySelector('meta[name="user"]').getAttribute('content')).email
+	let email=user.email
 	fetch('/user/getFavoriteSongs?email=' + encodeURIComponent(email))
 		.then(response => {
 			if (!response.ok)
