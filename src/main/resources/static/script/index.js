@@ -241,4 +241,6 @@ function getFavoriteSongs() {
 
 			createSongsList(songs, ul)
 		}).catch(error => console.error('Errore:', error))
+
+	window.innerWidth<800 ? toggleAside() : null
 }

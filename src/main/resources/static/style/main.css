@@ -242,5 +242,6 @@ button#toggleAside.toggle {
 		width: 35%;
 		position: relative;
 		float: none;
+		margin-right: 5%;
 	}
 }
