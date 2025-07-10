@@ -34,6 +34,8 @@ public class AdminController {
 	@Value("${STORAGE_ACCOUNT_KEY}")
 	private String blobAccountKey;
 
+	private final String connectionString=String.format("DefaultEndpointsProtocol=https;AccountName=storageaccountprogetto;AccountKey=%s;EndpointSuffix=core.windows.net", blobAccountKey);
+
 	public AdminController(UserService userService, SongService songService) {
 		this.userService = userService;
 		this.songService = songService;
@@ -54,8 +56,6 @@ public class AdminController {
 		if (!user.getRole().equals("ADMIN"))
 			return new RedirectView("/index");
 
-
-		String connectionString=String.format("DefaultEndpointsProtocol=https;AccountName=storageaccountprogetto;AccountKey=%s;EndpointSuffix=core.windows.net", blobAccountKey);
 
 		Song song=new Song();
 		song.setName(name);
@@ -82,21 +82,21 @@ public class AdminController {
 	}
 
 	private byte[] calculateMD5(InputStream inputStream) throws IOException {
-    try {
-        MessageDigest md5 = MessageDigest.getInstance("MD5");
-        byte[] buffer = new byte[8192];
-        int bytesRead;
+		try {
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			byte[] buffer = new byte[8192];
+			int bytesRead;
 
-        // Legge il flusso di byte e aggiorna l'hash
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            md5.update(buffer, 0, bytesRead);
-        }
+			// Legge il flusso di byte e aggiorna l'hash
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
+				md5.update(buffer, 0, bytesRead);
+			}
 
-        // Restituisce l'MD5 come stringa Base64
-        byte[] md5Bytes = md5.digest();
-        return Base64.getEncoder().encode(md5Bytes);
-    } catch (Exception e) {
-        throw new IOException("Errore nel calcolare MD5", e);
-    }
-}
+			// Restituisce l'MD5 come stringa Base64
+			byte[] md5Bytes = md5.digest();
+			return Base64.getEncoder().encode(md5Bytes);
+		} catch (Exception e) {
+			throw new IOException("Errore nel calcolare MD5", e);
+		}
+	}
 }

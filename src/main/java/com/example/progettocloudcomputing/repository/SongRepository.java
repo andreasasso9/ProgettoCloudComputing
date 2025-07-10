@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface SongRepository extends CosmosRepository<Song, String> {
-	@Query("SELECT * FROM s WHERE @name!='' AND  (STARTSWITH(LOWER(s.name), LOWER(@name)) OR CONTAINS(LOWER(s.singer), LOWER(@name)))")
+	@Query("SELECT * FROM s WHERE @name!='' AND  (STARTSWITH(LOWER(s.name), LOWER(@name)) OR CONTAINS(LOWER(s.singer), LOWER(@name)) OR CONTAINS(LOWER(s.name), LOWER(@name)))")
 	List<Song> findByName(@Param("name") String name);
 }
