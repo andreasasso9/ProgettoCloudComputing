@@ -33,8 +33,7 @@ public class AdminController {
 
 	@Value("${STORAGE_ACCOUNT_KEY}")
 	private String blobAccountKey;
-
-	private final String connectionString=String.format("DefaultEndpointsProtocol=https;AccountName=storageaccountprogetto;AccountKey=%s;EndpointSuffix=core.windows.net", blobAccountKey);
+ 
 
 	public AdminController(UserService userService, SongService songService) {
 		this.userService = userService;
@@ -60,6 +59,8 @@ public class AdminController {
 		Song song=new Song();
 		song.setName(name);
 		song.setSinger(singer);
+
+		String connectionString=String.format("DefaultEndpointsProtocol=https;AccountName=storageaccountprogetto;AccountKey=%s;EndpointSuffix=core.windows.net", blobAccountKey);
 
 		BlobContainerClient clientContainer=new BlobContainerClientBuilder()
 				.connectionString(connectionString)
